@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>泡沫BK - 必应导航页</title>
+    <link rel="icon" type="image/png" href="./img/Search.svg">
+    <style>
+        body {
+            display: flex;
+            flex-direction: column; /* 竖直排列 */
+            justify-content: center;
+            align-items: center;
+            height: 90vh;
+            background-color: #1f1f1f;
+            color: white;
+            font-family: 'Arial', sans-serif;
+            font-size: 10em; /* 字体大小 */
+            position: relative; /* 为了定位返回图标 */
+        }
+        .date-info {
+            font-size: 0.2em; /* 日期的字体大小 */
+            margin-bottom: 20px; /* 增加时钟和日期之间的间距 */
+            text-align: center; /* 居中对齐 */
+        }
+        .flip-clock {
+            display: flex;
+            margin: 0 20px;
+        }
+        .flip-clock-item {
+            position: relative;
+            width: 200px; /* 增大框框的宽度 */
+            height: 240px; /* 增大框框的高度 */
+            overflow: hidden; /* 隐藏超出部分 */
+            margin: 0 15px; /* 增加间隔 */
+            cursor: pointer; /* 增加指针样式 */
+        }
+        .flip-clock-inner {
+            position: absolute;
+            width: 100%;
+            height: 200%;
+            display: flex;
+            flex-direction: column; /* 竖向排列 */
+        }
+        .flip-clock-face {
+            width: 100%;
+            height: 50%; /* 每个数字占一半高度 */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: #444;
+            border-radius: 18px;
+            font-weight: bold;
+            font-size: 1em; /* 保持原有字体大小，继承 body 的 font-size */
+        }
+        /* 返回图标样式 */
+        .back-icon {
+            position: absolute; /* 绝对定位 */
+            top: 10px; /* 距离顶部10px */
+            left: 10px; /* 距离左边10px */
+            cursor: pointer; /* 鼠标指针样式 */
+            width: 40px; /* 限制宽度为80px */
+            height: 40px; /* 限制高度为80px */
+        }
+    </style>
+</head>
+<body>
+    <img src="./img/back.svg" class="back-icon" onclick="goBack()" alt="返回">
+    <div class="date-info" id="dateInfo">
+        <!-- 日期 -->
+    </div>
+    <div class="flip-clock">
+        <div class="flip-clock-item" id="hourClock">
+            <div class="flip-clock-inner" id="hourInner">
+                <div class="flip-clock-face" id="hourFace">00</div>
+                <div class="flip-clock-face" id="hourFaceNext">00</div>
+            </div>
+        </div>
+        <div>:</div>
+        <div class="flip-clock-item" id="minuteClock">
+            <div class="flip-clock-inner" id="minuteInner">
+                <div class="flip-clock-face" id="minuteFace">00</div>
+                <div class="flip-clock-face" id="minuteFaceNext">00</div>
+            </div>
+        </div>
+        <div>:</div>
+        <div class="flip-clock-item" id="secondClock">
+            <div class="flip-clock-inner" id="secondInner">
+                <div class="flip-clock-face" id="secondFace">00</div>
+                <div class="flip-clock-face" id="secondFaceNext">00</div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function displayTime() {
+            var date = new Date();
+            var hours = date.getHours();
+            var minutes = date.getMinutes();
+            var seconds = date.getSeconds();
+            
+            // 在数字小于 10 时前面补零
+            hours = hours < 10 ? '0' + hours : hours;
+            minutes = minutes < 10 ? '0' + minutes : minutes;
+            seconds = seconds < 10 ? '0' + seconds : seconds;
+            
+            // 更新时钟显示
+            updateFlipClock('hour', hours);
+            updateFlipClock('minute', minutes);
+            updateFlipClock('second', seconds);
+        }
+        
+        function updateFlipClock(type, currentValue) {
+            const face = document.getElementById(`${type}Face`);
+            const faceNext = document.getElementById(`${type}FaceNext`);
+
+            // 判断当前值和新值
+            if (face.innerHTML !== currentValue) {
+                faceNext.innerHTML = currentValue; // 设置下一个值
+                face.innerHTML = currentValue; // 直接更新当前值
+            }
+        }
+
+        // 为每个时钟部分添加点击事件
+        document.querySelectorAll('.flip-clock-item').forEach(item => {
+            item.addEventListener('click', () => {
+                window.location.href = 'https://beijing-time.org/'; // 跳转到指定网址
+            });
+        });
+
+        // 获取当前日期和星期信息并显示
+        function displayDate() {
+            const date = new Date();
+            const weekDays = ["星期日", "星期一", "星期二", "星期三", "星期四", "星期五", "星期六"];
+            const currentWeekDay = weekDays[date.getDay()]; // 获取当前星期几
+
+            const formattedDate = `${date.getFullYear()}年${date.getMonth() + 1}月${date.getDate()}日<br>${currentWeekDay}<br><br><br>`;
+            document.getElementById('dateInfo').innerHTML = formattedDate;
+        }
+
+        // 返回图标点击事件
+        function goBack() {
+            window.location.href = 'https://www.xxx.com/'; // 跳转到指定网址
+        }
+
+        // 每1毫秒更新一次时间
+        setInterval(displayTime, 1);
+        displayTime(); // 开始显示时间
+        displayDate(); // 显示日期信息
+    </script>
+</body>
+</html>

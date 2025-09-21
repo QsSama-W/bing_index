@@ -1,0 +1,13 @@
+[
+    {
+        "url": "https://www.xxx.com",
+        "imageUrl": "./static/img/Search.svg",
+        "name": "示例1"
+    },
+    {
+        "url": "https://www.xxx.com",
+        "imageUrl": "",
+        "name": "默认图标"
+    }
+]
+    

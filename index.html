@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>泡沫BK - 必应导航页</title>
+    <link rel="icon" type="image/png" href="./static/img/Search.svg">
+    <link href="./static/css/font-awesome.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="./static/css/styles.css">
+</head>
+
+<body>
+    <!-- 顶部导航栏 -->
+    <header>
+        <div class="container header-content">
+            <h1 class="logo">
+                <img src="./static/img/bing.svg" alt="Logo" style="width: 25%; height: auto; max-width: 200px;">
+                <a>&nbsp</a>
+                <a style="font-size: 150%;">Bing</a>
+            </h1>
+            
+            <!-- 右侧按钮组 -->
+            <div class="button-group">
+                <!-- 日夜模式切换按钮 -->
+                <button id="theme-toggle" class="icon-button">
+                    <i id="theme-icon" class="fa fa-moon-o"></i>
+                </button>
+                <!-- 按钮1 -->
+                <a href="https://www.xxx.com" class="icon-button">
+                    <i class="fa fa-home"></i>
+                </a>
+                <!-- 按钮2 -->
+                <a href="https://github.com/QsSama-W" class="icon-button">
+                    <i class="fa fa-github"></i>
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <!-- 主内容区 -->
+    <main class="container">
+        <!-- 搜索框 -->
+        <div class="search-container">
+            <div class="search-box">
+                <form id="searchForm" action="https://cn.bing.com/search" method="GET">
+                    <input type="text" name="q" id="searchInput" placeholder="Bing 搜索" autocomplete="off">
+                    <button type="submit">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <circle cx="11" cy="11" r="8"></circle>
+                            <path d="m21 21-4.3-4.3"></path>
+                        </svg>
+                    </button>
+                </form>
+            </div>
+        </div>
+        
+        <!-- 按钮网格滚动容器 -->
+        <div class="buttons-wrapper">
+            <!-- 加载状态指示器 -->
+            <div id="loading-indicator" class="loading-indicator">
+                <div class="loader"></div>
+            </div>
+            <!-- 错误提示区域 -->
+            <div id="error-message" class="error-message">
+                <p><i class="fa fa-exclamation-circle mr-2"></i>加载按钮数据失败</p>
+                <button id="retry-button" class="retry-button">
+                    <i class="fa fa-refresh mr-2"></i>重试加载
+                </button>
+            </div>
+            <!-- 按钮网格容器 -->
+            <div id="button-container" class="button-grid hidden"></div>
+        </div>
+    </main>
+
+    <!-- 页脚 -->
+    <div class="footer">
+        <a href="./static/time.html" id="timeLabel">当前时间：<span id="clock"></span></a>
+        <br>
+        <a target="_blank" href="https://beian.miit.gov.cn/" class="footer-link">xxxICP备xxxxxxx号-1</a>
+        <br>
+        <a target="_blank" href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=xxxxxxx" class="footer-link">
+            <img src="./static/img/备案国徽图标.png" alt="备案国徽图标" style="display: inline-block; vertical-align: middle;width: 17px;">
+            xxx公网安备xxxxxxx号
+    </div>
+
+    <script src="./static/js/scripts.js"></script>
+    
+</body>
+</html>

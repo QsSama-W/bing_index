@@ -1,15 +1,26 @@
-// 更新时钟显示
+// 时钟显示
 function updateClock() {
     const now = new Date();
+    
+    // 获取年月日
+    const year = now.getFullYear();
+    const month = String(now.getMonth() + 1).padStart(2, '0'); // 月份从0开始，需要加1
+    const day = String(now.getDate()).padStart(2, '0');
+    
+    // 获取时分秒
     const hours = String(now.getHours()).padStart(2, '0');
     const minutes = String(now.getMinutes()).padStart(2, '0');
     const seconds = String(now.getSeconds()).padStart(2, '0');
-    document.getElementById('clock').textContent = `${hours}:${minutes}:${seconds}`;
+    
+    // 格式化显示 年/月/日<br>时:分:秒（使用HTML换行）
+    document.getElementById('clock').innerHTML = 
+        `${year}/${month}/${day}<br>${hours}:${minutes}:${seconds}`;
 }
 
 // 初始化时钟并每0.5秒更新
 updateClock();
 setInterval(updateClock, 500);
+
 
 // 加载按钮数据
 async function loadButtonData() {
@@ -76,33 +87,62 @@ function initThemeToggle() {
     const themeToggle = document.getElementById('theme-toggle');
     const themeIcon = document.getElementById('theme-icon');
     const htmlElement = document.documentElement;
+    let isAutoMode = localStorage.getItem('themeMode') === 'auto';
     
-    // 检查本地存储中的主题偏好或系统设置
-    if (localStorage.getItem('theme') === 'dark' || 
-        (!localStorage.getItem('theme') && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
-        htmlElement.classList.add('dark');
-        themeIcon.classList.remove('fa-moon-o');
-        themeIcon.classList.add('fa-sun-o');
-    } else {
-        htmlElement.classList.remove('dark');
-        themeIcon.classList.remove('fa-sun-o');
-        themeIcon.classList.add('fa-moon-o');
+    // 检查当前模式并设置初始图标
+    updateIconAndTheme();
+    
+    // 自动模式下检查时间并更新主题
+    function checkTimeAndUpdateTheme() {
+        if (!isAutoMode) return;
+        
+        const hour = new Date().getHours();
+        // 6点到18点为白天（浅色模式），其余时间为黑夜（深色模式）
+        const isDayTime = hour >= 6 && hour < 18;
+        
+        if (isDayTime && !htmlElement.classList.contains('light')) {
+            htmlElement.classList.add('light');
+        } else if (!isDayTime && htmlElement.classList.contains('light')) {
+            htmlElement.classList.remove('light');
+        }
     }
     
-    // 手动切换主题
-    themeToggle.addEventListener('click', () => {
-        if (htmlElement.classList.contains('dark')) {
-            // 切换到浅色模式
-            htmlElement.classList.remove('dark');
-            localStorage.setItem('theme', 'light');
-            themeIcon.classList.remove('fa-sun-o');
-            themeIcon.classList.add('fa-moon-o');
+    // 更新图标和主题
+    function updateIconAndTheme() {
+        if (isAutoMode) {
+            // 自动模式
+            themeIcon.classList.remove('fa-moon-o', 'fa-sun-o');
+            themeIcon.classList.add('fa-adjust');
+            checkTimeAndUpdateTheme();
         } else {
-            // 切换到深色模式
-            htmlElement.classList.add('dark');
+            // 手动模式 - 根据当前主题设置图标
+            if (htmlElement.classList.contains('light')) {
+                themeIcon.classList.remove('fa-moon-o', 'fa-adjust');
+                themeIcon.classList.add('fa-sun-o');
+            } else {
+                themeIcon.classList.remove('fa-sun-o', 'fa-adjust');
+                themeIcon.classList.add('fa-moon-o');
+            }
+        }
+    }
+    
+    // 手动切换模式（自动 -> 浅色 -> 深色）
+    themeToggle.addEventListener('click', () => {
+        if (isAutoMode) {
+            // 从自动模式切换到浅色模式
+            isAutoMode = false;
+            htmlElement.classList.add('light');
+            localStorage.setItem('theme', 'light');
+            localStorage.setItem('themeMode', 'manual');
+        } else if (htmlElement.classList.contains('light')) {
+            // 从浅色模式切换到深色模式
+            htmlElement.classList.remove('light');
             localStorage.setItem('theme', 'dark');
-            themeIcon.classList.remove('fa-moon-o');
-            themeIcon.classList.add('fa-sun-o');
+            localStorage.setItem('themeMode', 'manual');
+        } else {
+            // 从深色模式切换到自动模式
+            isAutoMode = true;
+            localStorage.setItem('themeMode', 'auto');
         }
         
         // 添加旋转动画效果
@@ -110,13 +150,25 @@ function initThemeToggle() {
         setTimeout(() => {
             themeIcon.classList.remove('animate-spin');
         }, 1000);
+        
+        updateIconAndTheme();
     });
+    
+    // 每5分钟检查一次时间（在自动模式下）
+    setInterval(() => {
+        checkTimeAndUpdateTheme();
+    }, 300000); 
+    
+    // 初始检查
+    checkTimeAndUpdateTheme();
 }
+
+
 
 // 禁用右键菜单
 function disableRightClick() {
     document.addEventListener('contextmenu', (e) => {
-        e.preventDefault(); // 阻止默认右键菜单
+        e.preventDefault();
     }, false);
 }
 

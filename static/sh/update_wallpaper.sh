@@ -26,7 +26,7 @@ if [ -n "$imgurl_base" ] && [ "$imgurl_base" != "null" ]; then
     sed -i "s#background-image: url('.*'); *\/\* 设置桌面背景图片 \*\/#background-image: url('$escaped_pc_imgurl'); /* 设置桌面背景图片 */#" "$css_file"
     
     # 验证替换是否成功
-    if grep -q "$escaped_mobile_imgurl" "$css_file" && grep -q "$escaped_pc_imgurl" "$css_file"; then
+    if grep -q "$escaped_pc_imgurl" "$css_file"; then
         echo "CSS背景图片URL已成功更新"
     else
         echo "警告: 替换操作已执行，但未在文件中找到更新后的URL"

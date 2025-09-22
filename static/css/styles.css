@@ -1,4 +1,3 @@
-
 /* 基础样式重置 */
 * {
     margin: 0;
@@ -21,32 +20,32 @@
     --dark-gradient-start: rgba(0, 0, 0, 0.4);
     --dark-gradient-end: rgba(0, 0, 0, 0);
     
-    /* 默认使用浅色主题 */
-    --text-color: var(--light-text);
-    --border-color: var(--light-border);
-    --placeholder-color: var(--light-placeholder);
-    --gradient-start: var(--light-gradient-start);
-    --gradient-end: var(--light-gradient-end);
-    
-    /* 按钮相关变量 */
-    --btn-width: 91px;
-    --btn-height: 96px;
-    --btn-gap: 1rem;
-    --icon-btn-size: 40px;
-}
-
-/* 深色主题 */
-.dark {
+    /* 默认使用深色主题 */
     --text-color: var(--dark-text);
     --border-color: var(--dark-border);
     --placeholder-color: var(--dark-placeholder);
     --gradient-start: var(--dark-gradient-start);
     --gradient-end: var(--dark-gradient-end);
+    
+    /* 按钮相关变量 */
+    --btn-width: 81px;
+    --btn-height: 83px;
+    --btn-gap: 1rem;
+    --icon-btn-size: 40px;
+}
+
+/* 浅色主题 */
+.light {
+    --text-color: var(--light-text);
+    --border-color: var(--light-border);
+    --placeholder-color: var(--light-placeholder);
+    --gradient-start: var(--light-gradient-start);
+    --gradient-end: var(--light-gradient-end);
 }
 
 /* 通用样式 */
 body {
-    background-image: url('https://cn.bing.com/th?id=OHR.IceOtters_ZH-CN5393791969_1920x1080.jpg'); /* 设置桌面背景图片 */
+    background-image: url('https://cn.bing.com/th?id=OHR.AspenEquinox_ZH-CN5474695693_1920x1080.jpg'); /* 设置桌面背景图片 */
     background-size: cover;
     background-position: center;
     background-attachment: fixed;
@@ -63,6 +62,7 @@ body {
     max-width: 1280px;
     margin: 0 auto;
     padding: 0 16px;
+    text-align: center;
 }
 
 /* 头部样式 */
@@ -83,15 +83,15 @@ main {
 
 /* 搜索框样式 */
 .search-container {
-    margin-bottom: 32px;
-    margin-top: 64px;
+    margin-bottom: 10px;
+    margin-top: 68px;
     display: flex;
     justify-content: center;
 }
 
 .search-box {
     width: 100%;
-    max-width: 512px;
+    max-width: 712px;
 }
 
 #searchForm {
@@ -100,13 +100,13 @@ main {
     width: 100%;
     border-radius: 9999px;
     border: 2px solid var(--border-color);
-    background-color: rgba(255, 255, 255, 0.7);
+    background-color: rgba(31, 41, 55, 0.7);
     padding: 6px;
     transition: all 0.2s ease;
 }
 
-.dark #searchForm {
-    background-color: rgba(31, 41, 55, 0.7);
+.light #searchForm {
+    background-color: rgba(255, 255, 255, 0.7);
 }
 
 #searchForm:hover,
@@ -141,18 +141,45 @@ main {
 }
 
 #searchForm button:hover {
+    background-color: rgba(75, 85, 99, 0.8);
+}
+
+.light #searchForm button:hover {
     background-color: rgba(245, 246, 247, 0.8);
 }
 
-.dark #searchForm button:hover {
-    background-color: rgba(75, 85, 99, 0.8);
+/* 时钟样式 */
+.time-video a {
+    color: var(--text-color);
+    text-decoration: none;
+    transition: color 0.2s ease, text-shadow 0.3s ease;
+    font-size: 30px;
+    font-weight: bold;
+    text-shadow: 
+        -1px -1px 0 #696969,
+         1px -1px 0 #696969,
+        -1px  1px 0 #696969,
+         1px  1px 0 #696969;
+}
+
+.light .time-video a {
+    text-shadow: 
+        -1px -1px 0 #D3D3D3,
+         1px -1px 0 #D3D3D3,
+        -1px  1px 0 #D3D3D3,
+         1px  1px 0 #D3D3D3;
+}
+
+.time-video a:hover {
+    color: #1E90FF;
+    text-decoration: none;
 }
 
 /* 按钮网格容器 */
 .buttons-wrapper {
     background-color: transparent;
-    padding: 24px;
-    margin-bottom: 32px;
+    padding: 10px;
+    margin-bottom: 0px;
     max-height: calc(100vh - 320px);
     overflow-y: auto;
     
@@ -169,7 +196,7 @@ main {
 /* 按钮网格布局 */
 .button-grid {
     display: grid;
-    /* 自动填充，每个按钮最小宽度为91px，自动计算列数 */
+    /* 自动填充，每个按钮最小宽度为81px，自动计算列数 */
     grid-template-columns: repeat(auto-fill, minmax(var(--btn-width), 1fr));
     gap: var(--btn-gap);
     justify-items: center;
@@ -179,7 +206,7 @@ main {
 .btn-card {
     width: var(--btn-width);
     height: var(--btn-height);
-    background-color: rgba(255, 255, 255, 0.7);
+    background-color: rgba(31, 41, 55, 0.7);
     border-radius: 0.75rem;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
     transition: all 0.3s ease;
@@ -193,28 +220,28 @@ main {
     flex-shrink: 0;
 }
 
-.dark .btn-card {
-    background-color: rgba(31, 41, 55, 0.7);
+.light .btn-card {
+    background-color: rgba(255, 255, 255, 0.7);
 }
 
 .btn-card:hover {
     box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
     transform: translateY(-2px);
-    background-color: rgba(255, 255, 255, 0.9);
-}
-
-.dark .btn-card:hover {
     background-color: rgba(31, 41, 55, 0.9);
 }
 
+.light .btn-card:hover {
+    background-color: rgba(255, 255, 255, 0.9);
+}
+
 .btn-img {
-    width: 60px;
-    height: 60px;
+    width: 50px;
+    height: 50px;
     border-radius: 0.5rem;
     object-fit: cover;
-    margin-bottom: 8px;
+    margin-bottom: 0px;
     transition: transform 0.3s ease;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0);
 }
 
 .btn-card:hover .btn-img {
@@ -238,14 +265,14 @@ main {
 .loader {
     width: 40px;
     height: 40px;
-    border: 4px solid rgba(229, 231, 235, 0.7);
+    border: 4px solid rgba(75, 85, 99, 0.7);
     border-top-color: #3B82F6;
     border-radius: 50%;
     animation: spinner 0.8s linear infinite;
 }
 
-.dark .loader {
-    border-color: rgba(75, 85, 99, 0.7);
+.light .loader {
+    border-color: rgba(229, 231, 235, 0.7);
 }
 
 @keyframes spinner {
@@ -257,11 +284,11 @@ main {
     display: none;
     text-align: center;
     padding: 48px 0;
-    color: #ef4444;
+    color: #f87171;
 }
 
-.dark .error-message {
-    color: #f87171;
+.light .error-message {
+    color: #ef4444;
 }
 
 .retry-button {
@@ -302,7 +329,7 @@ main {
 }
 
 .footer-separator {
-    margin: 0 8px;
+    margin: 0 0px;
 }
 
 /* 头部内容样式 */
@@ -334,7 +361,7 @@ main {
     width: var(--icon-btn-size);
     height: var(--icon-btn-size);
     border-radius: 50%;
-    background-color: rgba(229, 231, 235, 0.7);
+    background-color: rgba(75, 85, 99, 0.7);
     border: 2px solid var(--border-color);
     color: var(--text-color);
     cursor: pointer;
@@ -346,17 +373,17 @@ main {
     text-decoration: none;
 }
 
-.dark .icon-button {
-    background-color: rgba(75, 85, 99, 0.7);
+.light .icon-button {
+    background-color: rgba(229, 231, 235, 0.7);
 }
 
 .icon-button:hover {
-    background-color: rgba(209, 213, 219, 0.9);
+    background-color: rgba(107, 114, 128, 0.9);
     transform: scale(1.05);
 }
 
-.dark .icon-button:hover {
-    background-color: rgba(107, 114, 128, 0.9);
+.light .icon-button:hover {
+    background-color: rgba(209, 213, 219, 0.9);
 }
 
 .icon-button i {

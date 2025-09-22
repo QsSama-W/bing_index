@@ -13,10 +13,14 @@
 
 **./static/sh/update_wallpaper.sh**
 
-**3、使用自定义任务定时执行该sh文件**
+**3、使用自定义任务定时执行该sh文件实现自动更换导航页壁纸**
 
 **./static/sh/update_wallpaper.sh**
+
+**4、在buttons.json内编辑需要添加的链接，然后通过js自动更新到导航页**
 
 **>使用了[Font-Awesome](https://github.com/FortAwesome/Font-Awesome)项目**
 
 **>仅在宝塔面板部署使用过**
+
+**>纯静态页，无后台登录功能不怕被爆**
